@@ -10,4 +10,22 @@
 如果需搭配redux,还需要使用react-router-redux
 ## 组件
 ### `<BrowserRouter>`
-儿时的年味
+此组件拥有以下属性:
+##### basename:string
+作用：为所有位置添加一个基准URL
+使用场景：假如你需要把页面部署到服务器的二级目录，你可以使用basename设置到此目录
+```jsx
+<BrowserRouter basename="/react" />
+<Link to="/user" />  //最终渲染为<a href="/react/user">
+```
+##### getUserConfirmation:func
+作用：导航到此页面前执行的函数，默认使用window.confirm
+使用场景：当需要用户进入页面前执行什么操作时可用，不过一般用到的不多
+```jsx
+const getConfirmation = (message, callback) => {
+    const allowTransition = window.confirm(message)
+    callback(allowTransition)
+}
+<BrowserRouter getUserConfirmation={getConfirmation('hello?',yourCallBack)}>
+```
+
