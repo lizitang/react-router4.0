@@ -80,5 +80,74 @@ const FadingRoute = ({ component: Component, ...rest }) => (
     </FaseIn>
   )} />
 )
-
 ```
+#### children：func
+有时候你可能只想知道访问地址是否被匹配，然后改变下别的东西，而不仅仅是对应的页面。
+```jsx
+<ul>
+  <ListItemLink to="/somewhere" />
+  <ListItemLink to="/somewhere-ele" />
+</ul>
+
+//不太明白。。
+const ListItemLink = ({to,...rest}) => (
+  <Route path={to} children={({match}) =>(
+    <li calssName={match ? 'active':''}>
+      <Link to={to} {...rest}/>>
+    </li>
+  )}/>
+)
+```
+#### path:string
+任何可以被 path-to-regexp解析的有效 URL 路径
+```jsx
+<Route path="/users/:id" component={User} />
+```
+#### exact: bool
+如果为 true，path 为 '/one' 的路由将不能匹配 '/one/two'，反之，亦然。
+#### strict: bool
+对路径末尾斜杠的匹配。如果为 true。path 为 '/one/' 将不能匹配 '/one' 但可以匹配 '/one/two'。
+### `<Link>`
+#### to: string
+作用：跳转到指定路径
+使用场景：如果只是单纯的跳转就直接用字符串形式的路径。
+```jsx
+<Link to="/courses" />
+```
+#### to: object
+作用：携带参数跳转到指定路径
+作用场景：比如你点击的这个链接将要跳转的页面需要展示此链接对应的内容，又比如这是个支付跳转，需要把商品的价格等信息传递过去。
+```jsx
+<Link to={{
+  pathname: '/course',
+  search: '?sort=name',
+  state: { price: 18 }
+}} />
+```
+###  `<NavLink>`
+这是 <Link> 的特殊版，顾名思义这就是为页面导航准备的。因为导航需要有 “激活状态”。
+#### activeClassName: string
+导航选中激活时候应用的样式名，默认样式名为 active
+```jsx
+<NavLink
+  to="/about"
+  activeClassName="selected"
+>MyBlog</NavLink>
+```
+#### activeStyle: object
+如果不想使用样式名就直接写style
+```jsx
+<NavLink
+  to="/about"
+  activeStyle={{ color: 'green', fontWeight: 'bold' }}
+>MyBlog</NavLink>
+```
+#### exact: bool
+若为 true，只有当访问地址严格匹配时激活样式才会应用
+#### strict: bool
+若为 true，只有当访问地址后缀斜杠严格匹配（有或无）时激活样式才会应用
+#### isActive: func
+决定导航是否激活，或者在导航激活时候做点别的事情。不管怎样，它不能决定对应页面是否可以渲染。
+### `<Switch>`
+
+
