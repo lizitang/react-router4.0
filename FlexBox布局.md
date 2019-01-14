@@ -22,3 +22,6 @@ space-around：项目位于各行之前、之间、之后都留有空白的容�
      justify-content:space-around;
  }
 ```
+如果中间不是2x，是x呢，也就是每个间隙与两侧的间隔相同。也就是这样：
+![blockchain](https://images2018.cnblogs.com/blog/1110419/201805/1110419-20180514230915123-2103328164.png "flex")
+这个时候就可以用到`space-evenly`这个属性了，但是这个属性的缺陷在于兼容性不是很好
